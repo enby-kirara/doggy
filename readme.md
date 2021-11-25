@@ -1,73 +1,56 @@
-# ================================
-#      tt @evil_makima - 2021
-# ================================
 
-- This api is for gametest(mcbe) process automation
+ ================================<br>
+    tt [@evil_makima](https://twitter.com/evil_makima) - 2021<br>
+ ================================<br>
 
-<style>
-    .box {
-        border-radius: 13px;
-        background: #333;
-        color: #ddd;
-        overflow: hidden;
-        margin: 13px;
-        padding-bottom: 5px;
-    }
+<br>
 
-    .header {
-        background-color: #111;
-        color: white;
-        text-align: center;
-        padding: 5px;
-    }
-    
-    .methods {
-        padding: 5px;
-    }
-    
-    .example {
-        background: #555;
-    }
-</style>
+- this api is for gametest(mcbe) process automation
+- gametest is still a very new feature. therefore, it has its limitations.
+- current mcbe version: 1.18.10.20
 
-<div class="box">
-    <div class="header">InventoryObserver</div>
-    
-    <div class="methods">
-        register( string, function)
-        <pre class="example">
-            <code>
-                import InventoryObserver from './dependencies/doggy.js';
-                
-                InventoryObserver.addMatcher( "makima:my_item_id", ( target, item, container, index) => {
-                    //your code here
-                    target.runCommand(`say {(item.id)}`);
-                });
-            </code>
-        </pre>
-    </div>
-</div>
+<br>
 
-<div class="box">
-    <div class="header">EntityDB</div>
-    
-    <div class="methods">
-        register( string )
-        <pre class="example">
-            <code>
-                import EntityDB from './dependencies/doggy.js';
-                
-                EntityDB.register( "makima:my_entity_id" );
-            </code>
-        </pre>
-        save( entity, json)
-        <pre class="example">
-            <code>
-                import EntityDB from './dependencies/doggy.js';
-                
-                //"entity" tem que ser uma Classe de entidade gametest(não jogador) :)
-                EntityDB.save( entity, {points:13});
-            </code>
-        </pre>
-    </div>
-</div>
+> index:
+>- [InventoryObserver](#inventoryobserver) <br>
+>- [EntityDB](#entitydb) <br>
+>- [EntityBench](#entitybench) <br>
+>- [EntityPortable](#entityportable) <br>
+
+<br>
+
+## InventoryObserver
+methods
+
+```js
+register( string, json)
+```
+
+variables
+
+```js
+delay -> int //sets the milliseconds for each check, default is 1000/10
+```
+
+example
+```js
+import { InventoryObserver } from './dependencies/doggy.js';
+
+InventoryObserver.register( "minecraft:diamond", {
+    range: [ 0, 36],//valid in slots 0 to 36
+    /*
+    range, data, max_data, min_data, amount, max_amount, min_amount
+    are optional filter parameters.
+    */
+ 	on_matching: function( target, item, container, index){//if found, it will execute a command on the player.
+ 		target.runCommand(`say ${(item.id)}`);
+ 	}
+});
+```
+
+## EntityDB 
+under development
+## EntityBench 
+under development
+## EntityPortable
+under development
