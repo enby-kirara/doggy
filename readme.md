@@ -32,7 +32,7 @@
 methods
 
 ```js
-register( string, json)
+register( string, json);//register an item to be checked
 ```
 
 variables
@@ -63,7 +63,12 @@ InventoryObserver.register( "minecraft:diamond", {
 methods
 
 ```js
-register( string ) //useless
+register( entity:id -> string);//useless
+createTable( entity:id -> string, uuid -> string, callback -> function);//summon an entity table
+loadTable( entity:id -> string, uuid -> string, callback -> function);//load an entity table
+delete( table -> entity);//delete an entity table
+read( table -> entity);//load the json data of an entity table
+write( table -> entiry, data -> json);//write json data to an entity table
 ```
 
 variables
