@@ -25,4 +25,4 @@ InventoryObserver.register( "minecraft:diamond", {
       target.runCommand(`say ${(item.id)}`);
    }
 });
-```
+``` 

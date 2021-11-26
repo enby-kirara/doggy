@@ -17,4 +17,4 @@ example
 import { EntityPortable } from './dependencies/doggy.js';
 
 EntityPortable.register( "makima:inventory", "makima:woof", "woof");
-```
+``` 
