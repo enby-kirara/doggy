@@ -1,0 +1,13 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "makima:woof"
+    },
+    "components": {
+	    "minecraft:durability": {
+			"max_durability": 10000
+		}
+    }
+  }
+}

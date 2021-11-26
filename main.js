@@ -1,4 +1,4 @@
-import { InventoryObserver, EntityDB } from './dependencies/doggy.js';
+import { InventoryObserver, EntityDB, EntityPortable } from './dependencies/doggy.js';
 import { world } from "mojang-minecraft";
 
 InventoryObserver.register( "minecraft:diamond", {
@@ -19,8 +19,8 @@ world.events.beforeChat.subscribe( data => {
 			let woof = data.woof;
 			
 			table.runCommand(`say ${woof}`);
-
-        	EntityDB.delete(table);
 		});
 	});	
 });
+
+EntityPortable.register( "makima:inventory", "makima:hand_minechest", "makima:tag");

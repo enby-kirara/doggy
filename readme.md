@@ -8,101 +8,53 @@
 - this api is for gametest(mcbe) process automation
 - gametest is still a very new feature. therefore, it has its limitations.
 - current mcbe version: 1.18.10.20
+- on [manifest.json](./beh/manifest.json)(beh) you can find how to configure your gametest project
+
+<br>
+
+
+> dictionary:
+> - uiid <br>
+> unique indefector
+> <br>
+>
+> - entity:id <br>
+> entity type identifier text
+> <br>
+>
+> - table <br>
+> gametest [class](https://github.com/MicrosoftDocs/minecraft-creator/blob/main/creator/ScriptAPI/mojang-minecraft/Entity.md) entity
+> <br>
+>
+> - callback <br>
+> callback function with fetched object as parameter
+> <br>
+>
+> - data <br>
+> object containing information (usually json)
+> <br>
+>
 
 <br>
 
 > index:
->> [InventoryObserver](#inventoryobserver)
->>> #### this class allows you to observe the players'inventory
->>> #### and perform actions when finding certain items.
+>> [InventoryObserver](./mds/InventoryObserver.md)
+>>> this class allows you to observe the players'inventory <br>
+>>> and perform actions when finding certain items. <br>
+>> </br>
+>
+>> [EntityDB](./mds/EntityDB.md)
+>>> this class allows storing json information in entities <br>
+>>> (it is also possible to load the same and its components) <br>
+>>> a customized [entity](./beh/entities/database.json) is needed for better functioning
 >> <br>
 >
->> [EntityDB](#entitydb) <br>
->>> #### this class allows storing json information in entities 
->>> #### (it is also possible to load the same and its components)
->>> ##### <span style="color: #f51">a customized [entity](./beh/entities/database.json) is needed for better functioning</span>
+>> [EntityPortable](./mds/EntityPortable.md) <br>
+>>> links entities to items (like a backpack) <br>
+>>> a customized [entity](./beh/entities/inventory.json) is needed for better functioning <br>
+>>> a custom [item](./beh/items/woof.json) with durability is required (the durability will be managed by the system so it doesn't work with tools)
 >> <br>
 >
->> [EntityBench](#entitybench) <br>
->> [EntityPortable](#entityportable) <br>
-
-<br>
-
-## InventoryObserver
-methods
-
-```js
-register( string, json);//register an item to be checked
-```
-
-variables
-
-```js
-delay -> int //sets the milliseconds for each check, default is 1000/10
-```
-
-example
-```js
-import { InventoryObserver } from './dependencies/doggy.js';
-
-InventoryObserver.register( "minecraft:diamond", {
-   range: [ 0, 36],//valid in slots 0 to 36
-   /*
-   range, data, max_data, min_data, amount, max_amount, min_amount
-   are optional filter parameters.
-   */
-   on_matching: function( target, item, container, index){//if found, it will execute a command on the player.
-      target.runCommand(`say ${(item.id)}`);
-   }
-});
-```
-
-<br>
-
-## EntityDB 
-methods
-
-```js
-register( entity:id -> string);//useless
-createTable( entity:id -> string, uuid -> string, callback -> function);//summon an entity table
-loadTable( entity:id -> string, uuid -> string, callback -> function);//load an entity table
-delete( table -> entity);//delete an entity table
-read( table -> entity);//load the json data of an entity table
-write( table -> entiry, data -> json);//write json data to an entity table
-```
-
-variables
-
-```js
-lite -> boolean //true = better performace
-```
-
-example
-```js
-import { EntityDB } from './dependencies/doggy.js';
-import { world } from "mojang-minecraft";//importing world to record chat event
-
-EntityDB.lite = true;//enabling lite mode
-
-world.events.beforeChat.subscribe( data => {//recording chat event
-	EntityDB.createTable( "makima:database", "makima:0x000", (table) => {//summoning a database entity
-		EntityDB.write( table, { woof: "woof" });//writing a json object
-
-		EntityDB.loadTable( "makima:database", "makima:0x000", (table) => {//reloading the entity
-			let data = EntityDB.read( table );//reading the entity's json object
-			let woof = data.woof;
-			
-			table.runCommand(`say ${woof}`);//running a command on the entity
-
-         EntityDB.delete(table);//deleting the entity
-		});
-	});	
-});
-```
-
-<br>
-
-## EntityBench 
-under development
-## EntityPortable
-under development
+>> [EntityBench](./mds/EntityBench.md)
+>>> creates custom benches through entities (workbench, furnace, potions support, etc.).
+>

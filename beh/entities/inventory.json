@@ -1,0 +1,103 @@
+{
+    "format_version":"1.13.0",
+    "minecraft:entity":{
+        "description":{
+            "identifier":"makima:inventory",
+            "is_spawnable":false,
+            "is_summonable":true,
+            "is_experimental":false
+        },
+        "components":{
+	        "minecraft:is_stackable": {},
+            "minecraft:type_family":{
+                "family":[
+                    "database"
+                ]
+            },
+            "minecraft:fire_immune":true,
+            "minecraft:knockback_resistance":{
+                "value": 1
+            },
+            "minecraft:collision_box": {
+				"width": 1,
+				"height": 1
+			},
+            "minecraft:damage_sensor": {
+                "triggers": {
+                    "cause":"all",
+                    "deals_damage": false
+                }
+            },
+            "minecraft:inventory": {
+	            "container_type": "inventory",
+				"inventory_size": 256
+            },
+            "minecraft:nameable": {
+	            "allow_name_tag_renaming": false
+            },
+            "minecraft:pushable": {
+	            "is_pushable": false,
+				"is_pushable_by_piston": false
+            },
+            "minecraft:physics": {
+	            "has_gravity": false,
+				"has_collision": false
+            }
+        },
+        "component_groups":{
+	        "imortal": {
+				"minecraft:health":{
+	                "value": 1,
+	                "max": 1,
+					"min": 1
+	            }
+			},
+			"mortal": {
+				"minecraft:health":{
+	                "value": 0,
+	                "max": 1,
+					"min": 0
+	            }
+			}
+		},
+		"events": {
+			"minecraft:entity_spawned": {
+                "run_command": {
+					"command": [
+						"gamerule sendcommandfeedback false",
+						"event entity @s imortal",
+						"gamerule sendcommandfeedback true"
+					]
+				}
+            },
+            "imortal": {
+	            "add": {
+                    "component_groups": [
+                        "imortal"
+                    ]
+                }
+            },
+            "mortal": {
+                "add": {
+                    "component_groups": [
+                        "mortal"
+                    ]
+                },
+                "remove": {
+                    "component_groups": [
+                        "imortal"
+                    ]
+                }
+            },
+			"delete": {
+				"run_command": {
+					"command": [
+						"gamerule sendcommandfeedback false",
+						"event entity @s mortal",
+						"gamerule sendcommandfeedback true"
+					]
+				}
+			}
+		}
+    }
+}
