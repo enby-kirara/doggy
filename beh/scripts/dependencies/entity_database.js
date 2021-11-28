@@ -14,6 +14,73 @@ class EntityDB {
 		return (this.list[table.id]!=false);
 	};
 	
+	setupScore( table, key){
+		try{
+			let ca = table.runCommand(`scoreboard objectives add ${key} dummy`);
+			let cb = table.runCommand(`scoreboard players add @s ${key}`);
+		} catch( e ){};
+	};
+	
+	getInt( table, key ){
+		this.setupScore( table, key);
+		
+		try{
+			let ca = table.runCommand(`scoreboard players add @s ${key} 0`);
+			return parseInt(ca.statusMessage.replace(/[^\d.-]/g, ' ').split(" ").filter(i=>i!="")[2]);
+		} catch(e) { return 0; }
+	};
+	
+	addInt( table, key, value){
+		this.setupScore( table, key);
+		
+		try {
+			let ca = table.runCommand(`scoreboard players add @s ${key} ${value}`);
+			return parseInt(ca.statusMessage.replace(/[^\d.-]/g, ' ').split(" ").filter(i=>i!="")[2]);
+		} catch(e) { return 0; }
+	};
+	
+	removeInt( table, key, value){
+		this.setupScore( table, key);
+		
+		try {
+			let ca = table.runCommand(`scoreboard players add @s ${key} ${-value}`);
+			return parseInt(ca.statusMessage.replace(/[^\d.-]/g, ' ').split(" ").filter(i=>i!="")[2]);
+		} catch(e) { return 0; }
+	};
+	
+	setInt( table, key, value){
+		this.setupScore( table, key);
+		
+		try {
+			let ca = table.runCommand(`scoreboard players set @s ${key} ${value}`);
+			return parseInt(ca.statusMessage.replace(/[^\d.-]/g, ' ').split(" ").filter(i=>i!="")[2]);
+		} catch(e) { return 0; }
+	};
+	
+	setIntList( table, data){
+		Object.keys( data ).forEach( ( key, index) => {
+			this.setupScore( table, key);
+			
+			table.runCommand(`scoreboard players set @s ${key} ${(data[key])}`);
+		});
+	};
+	
+	addIntList( table, data){
+		Object.keys( data ).forEach( ( key, index) => {
+			this.setupScore( table, key);
+			
+			table.runCommand(`scoreboard players add @s ${key} ${(data[key])}`);
+		});
+	};
+	
+	removeIntList( table, data){
+		Object.keys( data ).forEach( ( key, index) => {
+			this.setupScore( table, key);
+			
+			table.runCommand(`scoreboard players add @s ${key} ${(-data[key])}`);
+		});
+	};
+	
 	write( table, data){
 		table.nameTag = (this.lite)?JSON.stringify(data):this.invisibleText(JSON.stringify(data));
 	};

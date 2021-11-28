@@ -2,12 +2,23 @@
 methods
 
 ```js
-register( entity:id -> string);//useless
-createTable( entity:id -> string, uuid -> string, callback -> function);//summon an entity table
-loadTable( entity:id -> string, uuid -> string, callback -> function);//load an entity table
-delete( table -> entity);//delete an entity table
-read( table -> entity);//load the json data of an entity table
-write( table -> entiry, data -> json);//write json data to an entity table
+/*============================================================================
+		Int methods are slow, use them only with entities 
+		whose nametag cannot be managed by the system.
+============================================================================*/
+
+delete			( table -> entity);											//delete an entity table
+read			( table -> entity);											//load the json data of an entity table
+register		( entity:id -> string);										//useless
+write			( table -> entity, data -> json);							//write json data to an entity table
+putIntList		( table -> entity, data -> json);							//set value to an entity table key list
+addIntList		( table -> entity, data -> json);							//add value to an entity table key list
+removeIntList	( table -> entity, data -> json);							//revome value to an entity table key list
+putInt			( table -> entity, key -> string, value -> int) -> int;		//set value to an entity table key
+addInt			( table -> entity, key -> string, value -> int) -> int;		//add value to an entity table key
+removeInt		( table -> entity, key -> string, value -> int) -> int;		//remove value to an entity table key
+createTable		( entity:id -> string, uuid -> string, callback -> function);//summon an entity table
+loadTable		( entity:id -> string, uuid -> string, callback -> function);//load an entity table
 ```
 
 variables

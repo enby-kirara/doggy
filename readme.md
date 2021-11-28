@@ -34,6 +34,10 @@
 > object containing information (usually json)
 > <br>
 >
+> - key <br>
+> key value correlation with an object. at x = -201, we say x is the key and -201 the stored value.
+> <br>
+>
 
 <br>
 
